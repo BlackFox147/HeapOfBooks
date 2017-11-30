@@ -28,9 +28,9 @@ namespace CodeHeapOfBooks
             using (UserContext db = new UserContext())
             {
                 // создаем объекты Book 
-                Collection collection1 = new Collection { Name = "123", DateСreation = DateTime.Now };
-                Collection collection2 = new Collection { Name = "456", DateСreation = DateTime.Now };
-                Collection collection3 = new Collection { Name = "789", DateСreation = DateTime.Now };
+                Collection collection1 = new Collection { Name = "Властелин колец", DateСreation = DateTime.Now };
+                Collection collection2 = new Collection { Name = "Эрагон", DateСreation = DateTime.Now };
+                Collection collection3 = new Collection { Name = "Песнь льда и пламени", DateСreation = DateTime.Now };
 
                 // добавляем в базу данных 
                 db.Collections.Add(collection1);
