@@ -11,5 +11,6 @@ namespace Code.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DateСreation { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

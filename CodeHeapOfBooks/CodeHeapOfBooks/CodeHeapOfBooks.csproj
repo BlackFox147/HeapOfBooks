@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{32E152C4-C4AC-43F0-8131-5852E3CFEA51}</ProjectGuid>
+    <ProjectGuid>{1A7E13AA-C9E8-44E6-A5D8-B3F0A6E38E10}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Code</RootNamespace>
-    <AssemblyName>Code</AssemblyName>
+    <RootNamespace>CodeHeapOfBooks</RootNamespace>
+    <AssemblyName>CodeHeapOfBooks</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -61,7 +61,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UserContext.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,7 +75,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201711302024466_30112017SampleMigrations.cs" />
+    <Compile Include="Migrations\201711302024466_30112017SampleMigrations.Designer.cs">
+      <DependentUpon>201711302024466_30112017SampleMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711302030376_SampleMigrations.cs" />
+    <Compile Include="Migrations\201711302030376_SampleMigrations.Designer.cs">
+      <DependentUpon>201711302030376_SampleMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Collection.cs" />
+    <Compile Include="Model\Commit.cs" />
+    <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\UserContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -90,6 +102,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201711302024466_30112017SampleMigrations.resx">
+      <DependentUpon>201711302024466_30112017SampleMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711302030376_SampleMigrations.resx">
+      <DependentUpon>201711302030376_SampleMigrations.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

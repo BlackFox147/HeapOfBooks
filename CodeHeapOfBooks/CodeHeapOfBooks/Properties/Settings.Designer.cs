@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Code.Properties
+namespace CodeHeapOfBooks.Properties
 {
 
 
