@@ -5,9 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CodeHeapOfBooks.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="150">
     <Grid>
-        <ListView x:Name ="library" Grid.Column ="0" ItemsSource="{Binding ListOfCillections}" SelectedItem="{Binding SelectedCillection}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding AddCommand}">
+                <Image Margin="10" Source="/images/addFolder.png" Width="40" Height="40" />
+            </Button>
+            <Separator />
+            <Button  Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding DelCommand}">
+                <Image  Margin="10" Source="/images/delFolder.png" Width="40" Height="40" />
+            </Button>
+        </StackPanel>
+        
+        <ListView x:Name ="library" Grid.Row="1" Grid.Column ="0" ItemsSource="{Binding ListOfCillections}" SelectedItem="{Binding SelectedCillection}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>

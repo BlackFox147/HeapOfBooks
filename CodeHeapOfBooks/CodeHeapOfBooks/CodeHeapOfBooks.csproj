@@ -64,9 +64,17 @@
     <Compile Include="MyICommand.cs" />
     <Compile Include="ViewModel\BindableBase.cs" />
     <Compile Include="ViewModel\CollectionViewModel.cs" />
+    <Compile Include="ViewModel\ConfirmMessageViewModel.cs" />
+    <Compile Include="ViewModel\CreatedViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\CollectionView.xaml.cs">
       <DependentUpon>CollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ConfirmMessageView.xaml.cs">
+      <DependentUpon>ConfirmMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreatedView.xaml.cs">
+      <DependentUpon>CreatedView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -81,6 +89,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfirmMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreatedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,6 +148,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\addFolder.png" />
+    <Resource Include="images\delFolder.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

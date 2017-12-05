@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:CodeHeapOfBooks.ViewModel"        
         xmlns:viewModels="clr-namespace:CodeHeapOfBooks.ViewModel"
         xmlns:views1="clr-namespace:CodeHeapOfBooks.View"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="550" Width="725">
+    
+    
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -17,6 +20,10 @@
         </DataTemplate>        
     </Window.Resources>
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="0" Content="{Binding ListViewModel}" />
     </Grid>
 </Window>

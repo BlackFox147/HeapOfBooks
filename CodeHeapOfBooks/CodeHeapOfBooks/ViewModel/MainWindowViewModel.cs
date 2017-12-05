@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeHeapOfBooks.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,18 +12,31 @@ namespace CodeHeapOfBooks.ViewModel
         public MainWindowViewModel()
         {
             NavCommand = new MyICommand<string>(OnNav);
-            CurrentViewModel = new CollectionViewModel();
+
+
+            ListViewModel = new CollectionViewModel();
+
         }
         //private CustomerListViewModel custListViewModel = new CustomerListViewModel();
         //private OrderViewModel orderViewModelModel = new OrderViewModel();
 
         private BindableBase _CurrentViewModel;
+
         public BindableBase CurrentViewModel
         {
             get { return _CurrentViewModel; }
             set { SetProperty(ref _CurrentViewModel, value); }
         }
+
+        private BindableBase _ListViewModel;
+       
+        public BindableBase ListViewModel
+        {
+            get { return _ListViewModel; }
+            set { SetProperty(ref _ListViewModel, value); }
+        }
         public MyICommand<string> NavCommand { get; private set; }
+
 
         private void OnNav(string destination)
         {
@@ -40,6 +54,8 @@ namespace CodeHeapOfBooks.ViewModel
                 //    break;
             }
         }
+
+
 
     }
 }
