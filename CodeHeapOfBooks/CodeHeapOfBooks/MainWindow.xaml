@@ -17,13 +17,17 @@
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:CollectionViewModel}">
             <views1:CollectionView/>
-        </DataTemplate>        
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ListDocumentsViewModel}">
+            <views1:ListDocumentsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:DocumentsViewModel}">
+            <views1:DocumentsView/>
+        </DataTemplate>
+
+
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" Content="{Binding ListViewModel}" />
+    <Grid>        
+        <ContentControl Grid.Column="0" Content="{Binding ListViewModel}" />      
     </Grid>
 </Window>

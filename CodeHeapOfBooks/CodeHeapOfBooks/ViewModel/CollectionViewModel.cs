@@ -15,6 +15,35 @@ namespace CodeHeapOfBooks.ViewModel
         private Collection selectedCillection;
         private CreatedView createdView;
         private ConfirmMessageView confirmMessageView;
+        private ListDocumentsViewModel listDocumentsViewModel;
+        private DocumentsView documentsView;
+
+        public ListDocumentsViewModel ListDocumentsViewModel
+        {
+            get
+            {
+                return listDocumentsViewModel;
+            }
+            set
+            {
+                listDocumentsViewModel = value;
+                OnPropertyChanged("ListDocumentsViewModel");
+            }
+        }
+
+        public DocumentsView DocumentsViewModelQ
+        {
+            get
+            {
+                return documentsView;
+            }
+            set
+            {
+                //documentsViewModel = value;
+                //OnPropertyChanged("DocumentsViewModel");
+                 SetProperty(ref documentsView, value); 
+            }
+        }
 
         public List<Collection> ListOfCillections
         {
@@ -50,6 +79,8 @@ namespace CodeHeapOfBooks.ViewModel
             }
             AddCommand = new MyICommand<object>(GetNewName);
             DelCommand = new MyICommand<object>(DeleteCollection);
+            DetailCommand = new MyICommand<object>(DetailAddCommand);
+            listDocumentsViewModel = new ListDocumentsViewModel();
         }
 
         private void UpDateListCollection(UserContext db)
@@ -79,11 +110,7 @@ namespace CodeHeapOfBooks.ViewModel
                     }
 
                 }
-            }
-            else
-            {
-                MessageBox.Show("Ошибка!");
-            }
+            }           
         }
 
 
@@ -113,13 +140,25 @@ namespace CodeHeapOfBooks.ViewModel
                         }
 
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Ошибка!");
-                }
-            }
-           
+                }               
+            }           
+        }
+
+        int count = 30;
+        public MyICommand<object> DetailCommand { get; private set; }
+        private void DetailAddCommand(object destination)
+        {
+            //listDocumentsViewModel.AddNewTab();
+
+            var temp = new DocumentsView();
+            (temp.DataContext as DocumentsViewModel).Test = count;
+
+            DocumentsViewModelQ = temp;
+
+           // DocumentsViewModelQ = new DocumentsView();
+            //DocumentsViewModelQ.Test = count;
+            //OnPropertyChanged("DocumentsViewModel");
+            count++;
         }
     }
 }

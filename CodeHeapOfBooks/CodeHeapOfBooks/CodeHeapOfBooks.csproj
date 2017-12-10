@@ -61,11 +61,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\TabControls.cs" />
     <Compile Include="MyICommand.cs" />
     <Compile Include="ViewModel\BindableBase.cs" />
     <Compile Include="ViewModel\CollectionViewModel.cs" />
     <Compile Include="ViewModel\ConfirmMessageViewModel.cs" />
     <Compile Include="ViewModel\CreatedViewModel.cs" />
+    <Compile Include="ViewModel\DocumentsViewModel.cs" />
+    <Compile Include="ViewModel\ListDocumentsViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\CollectionView.xaml.cs">
       <DependentUpon>CollectionView.xaml</DependentUpon>
@@ -75,6 +78,12 @@
     </Compile>
     <Compile Include="View\CreatedView.xaml.cs">
       <DependentUpon>CreatedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DocumentsView.xaml.cs">
+      <DependentUpon>DocumentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ListDocumentsView.xaml.cs">
+      <DependentUpon>ListDocumentsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +106,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreatedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DocumentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ListDocumentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

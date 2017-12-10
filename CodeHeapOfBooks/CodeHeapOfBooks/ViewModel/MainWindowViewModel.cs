@@ -14,7 +14,8 @@ namespace CodeHeapOfBooks.ViewModel
             NavCommand = new MyICommand<string>(OnNav);
 
 
-            ListViewModel = new CollectionViewModel();
+            _ListViewModel = new CollectionViewModel();
+            //CurrentViewModel = new ListDocumentsViewModel();
 
         }
         //private CustomerListViewModel custListViewModel = new CustomerListViewModel();
@@ -22,11 +23,16 @@ namespace CodeHeapOfBooks.ViewModel
 
         private BindableBase _CurrentViewModel;
 
-        public BindableBase CurrentViewModel
-        {
-            get { return _CurrentViewModel; }
-            set { SetProperty(ref _CurrentViewModel, value); }
-        }
+        //public BindableBase CurrentViewModel
+        //{
+        //    get
+        //    {
+        //        //((CollectionViewModel)_ListViewModel).ListDocumentsViewModel;
+        //        CollectionViewModel temp = _ListViewModel as CollectionViewModel;
+        //        return temp.DocumentsViewModelQ;
+        //    }
+        //    set { SetProperty(ref _CurrentViewModel, value); }
+        //}
 
         private BindableBase _ListViewModel;
        
