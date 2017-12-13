@@ -26,5 +26,7 @@ namespace CodeHeapOfBooks.View
             InitializeComponent();
             DataContext = new DocumentsViewModel();
         }
+
+    
     }
 }

@@ -5,14 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CodeHeapOfBooks.ViewModel"
              mc:Ignorable="d" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition>              
+            <RowDefinition Height="auto">              
             </RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox Text="First test"></TextBox>
-        <TextBox Grid.Row="1" Text="{Binding Path=Test}"></TextBox>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <telerik:RadButton Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding AddCommand}">
+                <Image Margin="10"  Source="/images/addFolder.png" Width="40" Height="40" />
+            </telerik:RadButton>
+
+            <telerik:RadButton  Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding DelCommand}">
+                <Image  Margin="10" Source="/images/delFolder.png" Width="40" Height="40" />
+            </telerik:RadButton>
+        </StackPanel>
+        <telerik:RadGridView Grid.Row="1" IsReadOnly="True" ShowGroupPanel="False" ItemsSource="{Binding Documents}" ColumnWidth="*" AutoGenerateColumns="False">
+          
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Id}"
+                                Header="Id" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
+                                Header="Name" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+
+        
+        
+     
     </Grid>
 </UserControl>

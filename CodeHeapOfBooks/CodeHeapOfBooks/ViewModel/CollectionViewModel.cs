@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WPFMVVMPrism;
 
 namespace CodeHeapOfBooks.ViewModel
 {
@@ -15,21 +16,10 @@ namespace CodeHeapOfBooks.ViewModel
         private Collection selectedCillection;
         private CreatedView createdView;
         private ConfirmMessageView confirmMessageView;
-        private ListDocumentsViewModel listDocumentsViewModel;
+        private RelayCommand detCommand;
         private DocumentsView documentsView;
 
-        public ListDocumentsViewModel ListDocumentsViewModel
-        {
-            get
-            {
-                return listDocumentsViewModel;
-            }
-            set
-            {
-                listDocumentsViewModel = value;
-                OnPropertyChanged("ListDocumentsViewModel");
-            }
-        }
+    
 
         public DocumentsView DocumentsViewModelQ
         {
@@ -79,8 +69,8 @@ namespace CodeHeapOfBooks.ViewModel
             }
             AddCommand = new MyICommand<object>(GetNewName);
             DelCommand = new MyICommand<object>(DeleteCollection);
-            DetailCommand = new MyICommand<object>(DetailAddCommand);
-            listDocumentsViewModel = new ListDocumentsViewModel();
+            //DetailCommand = new MyICommand<object>(DetailAddCommand);
+            DocumentsViewModelQ = new DocumentsView();
         }
 
         private void UpDateListCollection(UserContext db)
@@ -145,15 +135,29 @@ namespace CodeHeapOfBooks.ViewModel
         }
 
         int count = 30;
-        public MyICommand<object> DetailCommand { get; private set; }
+        //public RelayCommand DetailCommand { get; private set; }
+
+
+        public RelayCommand DetailCommand
+        {
+            get { return detCommand ?? (detCommand = new RelayCommand(param => this.DetailAddCommand(param))); }
+
+        }
+
         private void DetailAddCommand(object destination)
         {
             //listDocumentsViewModel.AddNewTab();
 
             var temp = new DocumentsView();
             (temp.DataContext as DocumentsViewModel).Test = count;
-
-            DocumentsViewModelQ = temp;
+            var t = destination as Collection;
+            using (UserContext db = new UserContext())
+            {
+                var tempCol = db.Collections.Include("Documents").Where(x=>x.Id == (t).Id).ToList().FirstOrDefault();
+                (temp.DataContext as DocumentsViewModel).Documents = tempCol.Documents.ToList();
+                DocumentsViewModelQ = temp;
+            }
+               
 
            // DocumentsViewModelQ = new DocumentsView();
             //DocumentsViewModelQ.Test = count;

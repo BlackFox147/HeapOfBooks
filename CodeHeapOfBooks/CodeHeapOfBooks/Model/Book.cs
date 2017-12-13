@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Code.Model
 {
-    class Book : Document
+   public  class Book : Document
     {        
         public string Author { get; set; }
         public string Series { get; set; }

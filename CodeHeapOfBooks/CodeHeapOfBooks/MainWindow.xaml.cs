@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls;
 
 namespace CodeHeapOfBooks
 {
@@ -23,11 +24,26 @@ namespace CodeHeapOfBooks
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
+        {            
             InitializeComponent();
 
             using (UserContext db = new UserContext())
             {
+
+                //var temp = db.Collections.ToList();
+                //temp.ForEach(item =>
+                //{
+                //    Document collection1 = new Document { Name = "doc" + item.Id, DateСreation = DateTime.Now, DateLastChange = DateTime.Now, Collection = item, CollectionId = item.Id };
+                //    db.Documents.Add(collection1);
+                //});
+
+                //temp.ForEach(item =>
+                //{
+                //    Document collection1 = new Document { Name = "doc22" + item.Id, DateСreation = DateTime.Now, DateLastChange = DateTime.Now, Collection = item, CollectionId = item.Id };
+                //    db.Documents.Add(collection1);
+                //});
+
+                //db.SaveChanges();
 
 
                 //var temp = db.Collections.Include("Documents").ToList().First();

@@ -24,5 +24,10 @@ namespace CodeHeapOfBooks.View
         {
             InitializeComponent();
         }
+
+        private void library_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

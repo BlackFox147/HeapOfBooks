@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Code.Model
 {
-    class Commit
+    public class Commit
     {
         public int Id { get; set; }
         public string Information { get; set; }
