@@ -153,8 +153,9 @@ namespace CodeHeapOfBooks.ViewModel
             var t = destination as Collection;
             using (UserContext db = new UserContext())
             {
-                var tempCol = db.Collections.Include("Documents").Where(x=>x.Id == (t).Id).ToList().FirstOrDefault();
-                (temp.DataContext as DocumentsViewModel).Documents = tempCol.Documents.ToList();
+                //var tempCol = db.Collections.Include("Documents").Where(x=>x.Id == (t).Id).ToList().FirstOrDefault();
+                //(temp.DataContext as DocumentsViewModel).Documents = tempCol.Documents.ToList();
+                (temp.DataContext as DocumentsViewModel).Init(t);
                 DocumentsViewModelQ = temp;
             }
                

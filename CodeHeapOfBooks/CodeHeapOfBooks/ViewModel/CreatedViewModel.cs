@@ -26,6 +26,6 @@ namespace CodeHeapOfBooks.ViewModel
                 newName = value;
                 OnPropertyChanged("NewName");
             }
-        }      
+        }
     }
 }

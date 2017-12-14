@@ -11,7 +11,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/CodeHeapOfBooks;component/images/books.jpg" Opacity="0.5"/>
+            <ImageBrush ImageSource="/CodeHeapOfBooks;component/images/books3.png" Opacity="0.5"/>
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
@@ -32,28 +32,23 @@
             </telerik:RadButton>
         </StackPanel>
 
-        <telerik:RadListBox x:Name ="library" Grid.Row="1" Grid.Column ="0" 
+        <telerik:RadGridView x:Name ="library" Grid.Row="1" Grid.Column ="0" 
                             ItemsSource="{Binding ListOfCillections}" 
                             SelectedItem="{Binding SelectedCillection}" 
-                             MouseRightButtonDown="library_MouseRightButtonDown" Background="{x:Null}">
+                             MouseRightButtonDown="library_MouseRightButtonDown" Background="{x:Null}"
+                             IsFilteringAllowed="False" IsReadOnly="True" ShowGroupPanel="False" 
+                              ColumnWidth="*" AutoGenerateColumns="False" 
+                             ShowSearchPanel="True">
             <WPFMVVMPrism:CommandBehaviorCollection.Behaviors>
                 <WPFMVVMPrism:BehaviorBinding Event="MouseDoubleClick" Command="{Binding Path=DetailCommand}" CommandParameter="{Binding ElementName=library, Path=SelectedItem}"/>
 
             </WPFMVVMPrism:CommandBehaviorCollection.Behaviors>
-            <telerik:RadListBox.ItemTemplate>
-                <DataTemplate>
-
-                    <TextBlock Text="{Binding Name}" FontWeight="Bold" >
-                            <!--<TextBlock.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding DataContext.DetailCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                                  CommandParameter="{Binding MySourceItemId}" />
-                            </TextBlock.InputBindings>-->
-                    </TextBlock>
-
-                </DataTemplate>
-            </telerik:RadListBox.ItemTemplate>
-        </telerik:RadListBox>
+         
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
+                                Header="Имя" />               
+                </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
 
         <ContentPresenter Grid.Column="1" Grid.RowSpan="2" Content="{Binding Path=DocumentsViewModelQ}" DataContext="{Binding Path=DocumentsViewModelQ}"></ContentPresenter>
         <!--<local:DocumentsView Grid.Column="1" Grid.RowSpan="2"/>-->

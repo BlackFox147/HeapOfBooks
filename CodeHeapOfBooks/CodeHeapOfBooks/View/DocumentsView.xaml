@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CodeHeapOfBooks.ViewModel"
              mc:Ignorable="d" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:WPFMVVMPrism="clr-namespace:WPFMVVMPrism;assembly=WPFMVVMPrism"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -22,13 +23,20 @@
                 <Image  Margin="10" Source="/images/delFolder.png" Width="40" Height="40" />
             </telerik:RadButton>
         </StackPanel>
-        <telerik:RadGridView Grid.Row="1" IsReadOnly="True" ShowGroupPanel="False" ItemsSource="{Binding Documents}" ColumnWidth="*" AutoGenerateColumns="False">
-          
+        <telerik:RadGridView x:Name="docs" IsFilteringAllowed="False" Grid.Row="1" IsReadOnly="True" ShowGroupPanel="False" 
+                             ItemsSource="{Binding Documents}" ColumnWidth="*" AutoGenerateColumns="False" 
+                             SelectedItem="{Binding SelectedDocument}" ShowSearchPanel="True">
+            <WPFMVVMPrism:CommandBehaviorCollection.Behaviors>
+                <WPFMVVMPrism:BehaviorBinding Event="MouseDoubleClick" Command="{Binding Path=OpenCommand}" CommandParameter="{Binding ElementName=docs, Path=SelectedItem}"/>
+
+            </WPFMVVMPrism:CommandBehaviorCollection.Behaviors>
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Id}"
-                                Header="Id" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
-                                Header="Name" />
+                                Header="Имя" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding DateСreation}"
+                                Header="Создан" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding DateLastChange}"
+                                Header="Последнее изменение" />
             </telerik:RadGridView.Columns>
         </telerik:RadGridView>
 
