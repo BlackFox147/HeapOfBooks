@@ -1,7 +1,9 @@
 ﻿using Code.Model;
 using CodeHeapOfBooks.View;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -20,7 +22,7 @@ namespace CodeHeapOfBooks.ViewModel
         private AddDocumentView addDocumenView;
         private ConfirmMessageView confirmMessageView;
         private Collection collection;
-
+        private bool isWork;
 
 
         public int Test
@@ -33,7 +35,7 @@ namespace CodeHeapOfBooks.ViewModel
             {
                 test = value;
                 OnPropertyChanged("Test");
-            }            
+            }
         }
 
         public Document SelectedDocument
@@ -62,6 +64,7 @@ namespace CodeHeapOfBooks.ViewModel
             }
         }
 
+
         public Collection Collection
         {
             get
@@ -75,12 +78,29 @@ namespace CodeHeapOfBooks.ViewModel
             }
         }
 
+        public bool IsWork
+        {
+            get
+            {
+                return isWork;
+            }
+            set
+            {
+                isWork = value;
+                OnPropertyChanged("IsWork");
+            }
+        }
+
 
         public DocumentsViewModel()
         {
             this.documents = new List<Document>();
             AddCommand = new MyICommand<object>(GetNewName);
             DelCommand = new MyICommand<object>(DeleteCollection);
+            SetCommand = new MyICommand<object>(SetDoc);
+            PathCommand = new MyICommand<object>(GetNewPath);
+            SaveCommand = new MyICommand<object>(SaveInfo);
+            IsWork = true;
         }
 
         public RelayCommand OpenCommand
@@ -107,17 +127,19 @@ namespace CodeHeapOfBooks.ViewModel
 
         public void Init(Collection collection)
         {
+           
             this.Collection = collection;
             using (UserContext db = new UserContext())
             {
                 UpDateListDocuments(db);
             }
+           
         }
 
         private void UpDateListDocuments(UserContext db)
         {
             var tempCol = db.Collections.Include("Documents").Where(x => x.Id == (this.collection).Id).ToList().FirstOrDefault();
-            this.Documents = tempCol.Documents.ToList();            
+            this.Documents = tempCol.Documents.ToList();
         }
 
         public MyICommand<object> AddCommand { get; private set; }
@@ -127,13 +149,21 @@ namespace CodeHeapOfBooks.ViewModel
 
             if (addDocumenView.ShowDialog() == true)
             {
+                
                 var tempName = (addDocumenView.DataContext as AddDocumentViewModel).NewName;
                 var tempPath = (addDocumenView.DataContext as AddDocumentViewModel).PathDocument;
                 using (UserContext db = new UserContext())
                 {
 
-                    Document doc = new Document { Name = tempName, DateСreation = DateTime.Now, FilePath = tempPath, DateLastChange = DateTime.Now,
-                       Collection = db.Collections.Where(x => x.Id == (collection).Id).ToList().FirstOrDefault(), CollectionId = this.collection.Id};
+                    Document doc = new Document
+                    {
+                        Name = tempName,
+                        DateСreation = DateTime.Now,
+                        FilePath = tempPath,
+                        DateLastChange = DateTime.Now,
+                        Collection = db.Collections.Where(x => x.Id == (collection).Id).ToList().FirstOrDefault(),
+                        CollectionId = this.collection.Id
+                    };
                     db.Documents.Add(doc);
 
                     if (db.SaveChanges() == 1)
@@ -146,36 +176,78 @@ namespace CodeHeapOfBooks.ViewModel
                     }
 
                 }
+                
             }
         }
+
+
 
         public MyICommand<object> DelCommand { get; private set; }
         private void DeleteCollection(object destination)
         {
-            //if (selectedCillection != null)
-            //{
-            //    confirmMessageView = new ConfirmMessageView("Вы уверены, что хотите удалить эту коллекцию?");
+            if (document != null)
+            {
+                confirmMessageView = new ConfirmMessageView("Вы уверены, что хотите удалить эту коллекцию?");
 
-            //    if (confirmMessageView.ShowDialog() == true)
-            //    {
-            //        using (UserContext db = new UserContext())
-            //        {
-            //            var temp = db.Collections.Find(selectedCillection.Id);
+                if (confirmMessageView.ShowDialog() == true)
+                {
+                    using (UserContext db = new UserContext())
+                    {
+                        var temp = db.Documents.Find(document.Id);
 
-            //            db.Collections.Remove(temp);
+                        db.Documents.Remove(temp);
 
-            //            if (db.SaveChanges() == 1)
-            //            {
-            //                UpDateListCollection(db);
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Ошибка базы данных!");
-            //            }
+                        if (db.SaveChanges() == 1)
+                        {
+                            UpDateListDocuments(db);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка базы данных!");
+                        }
 
-            //        }
-            //    }
-            //}
+                    }
+                }
+            }
+        }
+
+        public MyICommand<object> SetCommand { get; private set; }
+        private void SetDoc(object destination)
+        {
+            if(document != null)
+            {
+                IsWork = !IsWork;
+                OnPropertyChanged("SelectedDocument");
+                OnPropertyChanged("Documents");
+            }           
+
+        }
+
+        public MyICommand<object> PathCommand { get; private set; }
+        private void GetNewPath(object destination)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            if (openFileDialog1.ShowDialog() != true) return;
+
+            SelectedDocument.FilePath = openFileDialog1.FileName;
+            OnPropertyChanged("SelectedDocument");
+
+        }
+
+        public MyICommand<object> SaveCommand { get; private set; }
+        private void SaveInfo(object destination)
+        {
+            //int a = 0;
+            using(UserContext db = new UserContext())
+            {
+                document.DateLastChange = DateTime.Now;
+                db.Entry(document).State = EntityState.Modified;
+                if (db.SaveChanges() != 1)
+                {
+                    MessageBox.Show("Ошибка базы данных!");
+                }
+            }
+            
         }
 
 

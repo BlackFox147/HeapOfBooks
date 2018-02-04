@@ -7,25 +7,35 @@
              mc:Ignorable="d" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:WPFMVVMPrism="clr-namespace:WPFMVVMPrism;assembly=WPFMVVMPrism"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="500">
+    <UserControl.Resources>
+        <telerik:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter"/>
+        <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto">              
             </RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+           
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <telerik:RadButton Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding AddCommand}">
-                <Image Margin="10"  Source="/images/addFolder.png" Width="40" Height="40" />
+                <Image Margin="10"  Source="/CodeHeapOfBooks;component/images/addD1.png" Width="40" Height="40" />
             </telerik:RadButton>
 
             <telerik:RadButton  Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding DelCommand}">
-                <Image  Margin="10" Source="/images/delFolder.png" Width="40" Height="40" />
+                <Image  Margin="10" Source="/CodeHeapOfBooks;component/images/addD.png" Width="40" Height="40" />
+            </telerik:RadButton>
+
+            <telerik:RadButton  Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding SetCommand}">
+                <Image  Margin="10" Source="/CodeHeapOfBooks;component/images/setIng.png" Width="40" Height="40" />
             </telerik:RadButton>
         </StackPanel>
         <telerik:RadGridView x:Name="docs" IsFilteringAllowed="False" Grid.Row="1" IsReadOnly="True" ShowGroupPanel="False" 
                              ItemsSource="{Binding Documents}" ColumnWidth="*" AutoGenerateColumns="False" 
-                             SelectedItem="{Binding SelectedDocument}" ShowSearchPanel="True">
+                             SelectedItem="{Binding SelectedDocument}" ShowSearchPanel="True" Margin="1,0,-1,0"
+                             Visibility="{Binding IsWork, Converter={StaticResource BooleanToVisibilityConverter}}">
             <WPFMVVMPrism:CommandBehaviorCollection.Behaviors>
                 <WPFMVVMPrism:BehaviorBinding Event="MouseDoubleClick" Command="{Binding Path=OpenCommand}" CommandParameter="{Binding ElementName=docs, Path=SelectedItem}"/>
 
@@ -39,7 +49,47 @@
                                 Header="Последнее изменение" />
             </telerik:RadGridView.Columns>
         </telerik:RadGridView>
+        <Grid Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding IsWork, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
+            <telerik:RadButton Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding SaveCommand}">
+                <Image  Margin="10" Source="/CodeHeapOfBooks;component/images/editD.png" Width="20" Height="20" />
+            </telerik:RadButton>
+            <telerik:Label HorizontalAlignment="Left" Content="Имя" Grid.Column="0" Grid.Row="1"  Margin="10" >
+            </telerik:Label>
+            <TextBox Grid.Row="1"  Grid.Column="1" Margin="10" Width="200" Text="{Binding SelectedDocument.Name, Mode=TwoWay}">                
+            </TextBox>
+
+            <telerik:Label HorizontalAlignment="Left" Content="Создан" Grid.Column="0" Grid.Row="2"  Margin="10" >
+            </telerik:Label>
+            <telerik:Label Grid.Row="2"  Grid.Column="1" Margin="10" Width="200" Content="{Binding SelectedDocument.DateСreation}">
+            </telerik:Label>
+
+            <telerik:Label HorizontalAlignment="Left" Content="Изменён" Grid.Column="0" Grid.Row="3"  Margin="10" >
+            </telerik:Label>
+            <telerik:Label Grid.Row="3"  Grid.Column="1" Margin="10"  Content="{Binding SelectedDocument.DateLastChange}">
+            </telerik:Label>
+
+            <telerik:Label HorizontalAlignment="Left" Content="Путь" Grid.Column="0" Grid.Row="4"  Margin="10">
+            </telerik:Label>
+
+            <telerik:HighlightTextBlock Grid.Row="4"  Grid.Column="1" Margin="10" Width="200" Text="{Binding SelectedDocument.FilePath, Mode=TwoWay}" TextWrapping="Wrap">
+            </telerik:HighlightTextBlock>
+
+            <telerik:RadButton Command="{Binding PathCommand}"  Grid.Row="5"  Grid.Column="0" Margin="10" >Обзор</telerik:RadButton>
+           
+        </Grid>
         
         
      
